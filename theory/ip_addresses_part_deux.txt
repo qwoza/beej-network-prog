@@ -1,0 +1,91 @@
+Let's say you have a 
+	struct sockaddr_in ina
+and you have an IP address "10.12.110.57" or “2001:db8:63b3:1::3490”
+that you want to store into it:
+	the function you want to use:
+		inet_pton()
+	converts an IP address in numbers-and-dots notation into either a
+	struct in_addr OR a struct in6_addr depending on whether you specify
+	AF_INET or AF_INET6.
+	("pton" stands for "presentation to network" - you can call it "printable to network"
+	 if that's easier to remember).
+
+The conversation can be made as follows:
+
+	struct sockaddr_in sa; 		// IPv4
+	struct sockaddr_in6 sa6; 	// IPv6
+	
+	inet_pton(AF_INET, "10.12.110.57", &(sa.sin_addr)); 		// IPv4
+	inet_pton(AF_INET6, "2001:db8:63b3:1::3490", &(sa6.sin6_addr)); // IPv6
+
+OLD WAY OF DOING THINGS:
+	used a function called inet_addr() or another function called inet_aton();
+	these are now obsolete and don't work with IPv6.)
+
+The above code isn't very robust (no error checking)
+
+inet_pton() returns -1 on ERROR, or 0 if the address is MESSED UP.
+So check to make sure the result is GREATER THAN 0 BEFORE USING!
+
+Now you can convert string IP Addresses to their BINARY REPRESENTATIONS
+What about the other way around?
+What if you want to:
+	print a struct in_addr in numbers-and-dots notation?
+
+in this case, you'll want to use the function:
+	inet_ntop();
+
+
+// IPv4:
+
+char ip4[INET_ADDRSTRLEN];  // space to hold the IPv4 string
+struct sockaddr_in sa;      // pretend this is loaded with something
+
+inet_ntop(AF_INET, &(sa.sin_addr), ip4, INET_ADDRSTRLEN);
+
+printf("The IPv4 address is: %s\n", ip4);
+
+
+// IPv6:
+
+char ip6[INET6_ADDRSTRLEN]; // space to hold the IPv6 string
+struct sockaddr_in6 sa6;    // pretend this is loaded with something
+
+inet_ntop(AF_INET6, &(sa6.sin6_addr), ip6, INET6_ADDRSTRLEN);
+
+printf("The address is: %s\n", ip6);
+
+SOOOOO:
+	when you call it, you'll pass the address type (IPv4 or IPv6), the address,
+	a pointer to a string to hold the result, and the maximum length of that string
+
+	TWO MACROS hold the SIZE of the STRING you'll need to hold the LARGEST IPv4 or IPv6 ADDRESS:
+		INET_ADDRSTRLEN and INET6_ADDRSTRLEN
+
+LASTLY:
+	these functions only work with NUMERIC IP ADDRESSES
+	they WILL NOT DO ANY nameserver DNS Lookup on a hostname, like "www.example.com".
+	You will use getaddrinfo() to do that
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

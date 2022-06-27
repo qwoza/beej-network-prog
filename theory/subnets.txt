@@ -1,0 +1,39 @@
+192.0.2.12 - could say that the first 3 bytes are the network
+	     and the last byte was the host.
+	     e.g. we're talking about host 12 on the network 192.0.2.0
+
+There WERE classes of subnets:
+	first one, two, or three bytes of addr was the network part
+	for example, in a CLASS A NETWORK, if you had:
+		One byte for the network part
+		Three bytes for the host part
+		You could have:
+			24 bits-worth of hosts on your network (16 million or so actual hosts)
+
+	opposite end: CLASS C NETWORK (3 bytes net, 1 byte host, 256 hosts, minus a few that were reserved)
+
+
+NETMASK:
+	network portion of the ip is described by something called the NETMASK
+	
+	You BITWISE-AND the NETMASK with the IP ADDRESS to get the NETWORK NUMBER out of it.
+	
+	(e.g. netmask = 255.255.255.0, ip = 192.0.2.12, then:
+	      YOUR NETWORK = (192.0.2.12 AND 255.255.255.0) = 192.0.2.0)
+
+Unfortunately, it turned out that this wasn’t fine-grained enough for the eventual
+needs of the Internet; we were running out of Class C networks quite quickly, and
+we were most definitely out of Class As, so don’t even bother to ask. To remedy this,
+The Powers That Be allowed for the netmask to be an arbitrary number of bits, not just 
+8, 16, or 24. So you might have a netmask of, say 255.255.255.252, which is 30 bits of
+network, and 2 bits of host allowing for four hosts on the network.
+(Note that the netmask is ALWAYS a bunch of 1-bits followed by a bunch of 0-bits.)
+
+HOWEVER it's a little unwieldy to use such big strings of numbers:
+NEW STYLE came along (it's way nicer)
+You just:
+	put a slash after the IP addr and then follow that by the NUMBER OF NETWORK BITS in DECIMAL
+	Like this: 192.0.2.12/30
+
+Or, for IPv6, something like this: 2001:db8::/32 or 2001:db8:5413:4028::9db9/64.
+		

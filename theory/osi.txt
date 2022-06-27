@@ -1,0 +1,18 @@
+Model:
+
+Application	- where users interact with the network
+Presentation
+Session
+Transport
+Network
+Data Link
+Physical	- hardware (serial, ethernet, etc.)
+
+More specifically:
+
+Application Layer (telnet, ftp, etc.)
+Host-to-Host Transport Layer (TCP, UDP)
+Internet Layer (IP and routing)
+Network Access Layer (Ethernet, Wi-Fi, or whatever)
+
+(encapsulation of the original data corresponds to this model)

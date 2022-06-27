@@ -1,0 +1,22 @@
+Another address is used by TCP AND UDP (aside from IP).
+It is the PORT NUMBER.
+
+PORT NUM = 16 BIT NUM which is like the LOCAL ADDRESS FOR THE CONNECTION
+
+Think of it like so:
+	IP = address of a hotel
+	Port = room number
+
+Suppose you want a computer that handles incoming mail AND web services
+	how do you differentiate between the two on a computer with a single IP?
+	Ports!
+
+Different services on the internet have different well-known port numbers
+https://www.iana.org/assignments/port-numbers
+or in /etc/services (if on nix)
+
+http = 80
+telnet = 23
+smtp = 25
+
+ports < 1024 are often considered special and usually require special os privs to use.

@@ -1,0 +1,17 @@
+IPv4:
+	- Addresses made up of 4 BYTES (4 'octets')
+	- e.g. 192.0.2.111
+	
+	- 127.0.0.1 = loopback addr
+
+IPv6:
+	- Far greater number of IP addresses available for allocation
+	- 2^128 numbers....
+    These are equivalent:
+	    2001:0db8:c9d2:0012:0000:0000:0000:0051
+	    2001:db8:c9d2:12::51
+
+	- ::1 = loopback address (i.e. "this machine im running on now")
+	
+
+Finally, there’s an IPv4-compatibility mode for IPv6 addresses that you might come across. If you want, for example, to represent the IPv4 address 192.0.2.33 as an IPv6 address, you use the following notation: “::ffff:192.0.2.33”.

@@ -1,0 +1,41 @@
+Big-Endian (Network Byte Order):
+(this is the preferred order for network-type people)
+	e.g. 2-byte hex num:
+		b34f
+	     store in 2 sequential bytes:
+		b3,4f
+		(    ^ big end first)
+
+Little-Endian (Host Byte Order):
+	b34f would be stored as:
+		4f,b3
+
+
+Your Computer stores numbers in Host Byte Order (Little-Endian)
+(probably)
+
+A lot of times when you’re building packets or filling out data structures you’ll need to make sure your two- and four-byte numbers are in Network Byte Order. But how can you do this if you don’t know the native Host Byte Order?
+
+Good news! You just get to assume the Host Byte Order isn’t right, and you always run the value through a function to set it to Network Byte Order. The function will do the magic conversion if it has to, and this way your code is portable to machines of differing endianness.
+
+
+TWO TYPES OF NUMS YOU CAN CONVERT:
+	short (2 bytes)
+	long  (4 bytes)
+	works for unsigned variations as well.
+
+	SAY you want to convert a short from Host Byte Order to Network Byte Order:
+		h-to-n-s, or....htons() !!! (short for "Host to Network Short")
+
+Func		Description
+-------------------------------------
+htons() 	host to network short
+htonl() 	host to network long
+ntohs() 	network to host short
+ntohl() 	network to host long
+
+BASICALLY:
+	you'll want to convert the numbers to NETWORK BYTE ORDER before they go out on the wire
+	AND convert them to HOST BYTE ORDER As they come in off the wire.
+
+
