@@ -1,0 +1,47 @@
+Helps set up the structs you need later on
+
+History:
+	- to do DNS Lookups, you used to use: gethostbyname()
+		- then you'd load that info by hand into a struct sockaddr_in and use that in your calls.
+
+	- this is no longer necessary (nor is it desirable, if you want v4 and v6 compatible code)
+
+	- getaddrinfo() gets DNS info, service name lookups, and fills out the structs you need
+
+
+eg:
+
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netdb.h>
+
+int getaddrinfo(const char *node,		// e.g. "www.example.com or IP
+		const char *service,		// e.g. "http" or port number
+		const struct addrinfo *hints,
+		struct addrinfo **res);
+
+you give this function three input params
+it gives you a POINTER to a LINKED LIST, "res", of results.
+
+The node param:
+	host name to connect to, or IP address
+
+service param:
+	port num or name of service (http, ftp, telnet, etc)
+
+hints:
+	parameter points to a struct addrinfo that you've already filled out with relevant information
+
+sample of server listening on host's IP on port 3490
+(note that this doesn't actually do any listening or network setup; it merely sets up structures that we'll use later:
+
+int status;
+struct addrinfo hints;
+struct addrinfo *servinfo; // will point to the results
+
+memset(&hints, 0, sizeof hints); // make sure the struct is empty
+hints.ai_family = AF_UNSPEC;	// don't care Ipv4 or ipv6
+hints.ai_socktype = SOCK_STREAM;	// TCP stream sockets
+hints.ai_flags = AI_PASSIVE;		// fill in my IP for me
+
+if ((status
